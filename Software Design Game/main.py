@@ -22,7 +22,6 @@ pygame.display.flip()
 
 allSprites = pygame.sprite.OrderedUpdates()
 allSprites.add(player)
-allSprites.add(background)
  
 while True:
     for event in pygame.event.get():
@@ -37,4 +36,3 @@ while True:
     pygame.display.update(rects)
     
     FramePerSec.tick(FPS)
-    
