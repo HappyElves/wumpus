@@ -19,33 +19,33 @@ class Player(pygame.sprite.Sprite):
 
     def update(self, allSprites):
         self.acc = vec(0,0)
-        x, y = 0, 0
+ 
         pressedKeys = pygame.key.get_pressed()
 
         #Movement input detection
         if pressedKeys[K_LEFT]:
-            x = -pSpeed
+            self.acc.x = -pSpeed
         if pressedKeys[K_RIGHT]:
-            x = pSpeed
+           self.acc.x = pSpeed
         if pressedKeys[K_UP]:
-            y = -pSpeed
+            self.acc.y = -pSpeed
         if pressedKeys[K_DOWN]:
-           y = pSpeed
+           self.acc.y = pSpeed
     
-        if x and y:
-            x /= 2 ** 0.5
-            y /= 2 ** 0.5
+        if self.acc.x and self.acc.y:
+            self.acc.x /= 2 ** 0.5
+            self.acc.y /= 2 ** 0.5
 
         #Collision detection
         obstacles = [sprite for sprite in allSprites if isinstance(sprite, Obstacle)]
         
-        self.rect.x += x
+        self.rect.x += self.acc.x
         for obstacle in pygame.sprite.spritecollide(self, obstacles, False):
             if self.acc.x > 0:
                 self.rect.right = obstacle.rect.left
             if self.acc.x < 0:
                 self.rect.left = obstacle.rect.right
-        self.rect.y += y
+        self.rect.y += self.acc.y
         for wall in pygame.sprite.spritecollide(self, obstacles, False):
             if self.acc.y > 0:
                 self.rect.top = obstacle.rect.bottom
